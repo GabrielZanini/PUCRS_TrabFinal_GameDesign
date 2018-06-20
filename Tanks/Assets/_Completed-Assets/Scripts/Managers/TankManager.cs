@@ -68,7 +68,7 @@ namespace Complete
         public void EnableControl ()
         {
             m_Movement.enabled = true;
-            //m_Shooting.enabled = true;
+            m_Shooting.enabled = true;
             m_ShootingBullets.enabled = true;
 
             m_CanvasGameObject.SetActive (true);
