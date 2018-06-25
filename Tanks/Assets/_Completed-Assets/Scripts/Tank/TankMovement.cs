@@ -4,6 +4,8 @@ namespace Complete
 {
     public class TankMovement : MonoBehaviour
     {
+        public MovementType _movementType;
+
         public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
         public float m_Speed = 12f;                 // How fast the tank moves forward and back.
         public float m_TurnSpeed = 180f;            // How fast the tank turns in degrees per second.
@@ -20,9 +22,12 @@ namespace Complete
         private float m_OriginalPitch;              // The pitch of the audio source at the start of the scene.
         private ParticleSystem[] m_particleSystems; // References to all the particles systems used by the Tanks
 
+        private TankInput TankInput;
+
         private void Awake ()
         {
             m_Rigidbody = GetComponent<Rigidbody> ();
+            TankInput = GetComponent<TankInput>();
         }
 
 
@@ -61,9 +66,9 @@ namespace Complete
 
         private void Start ()
         {
-            // The axes names are based on player number.
-            m_MovementAxisName = "Vertical" + m_PlayerNumber;
-            m_TurnAxisName = "Horizontal" + m_PlayerNumber;
+            //// The axes names are based on player number.
+            //m_MovementAxisName = "Vertical" + m_PlayerNumber;
+            //m_TurnAxisName = "Horizontal" + m_PlayerNumber;
 
             // Store the original pitch of the audio source.
             m_OriginalPitch = m_MovementAudio.pitch;
@@ -72,9 +77,21 @@ namespace Complete
 
         private void Update ()
         {
-            // Store the value of both input axes.
-            m_MovementInputValue = Input.GetAxis (m_MovementAxisName);
-            m_TurnInputValue = Input.GetAxis (m_TurnAxisName);
+            if (_movementType == MovementType.Original)
+            {
+                m_MovementInputValue = TankInput.m_VerticalAxis;
+                m_TurnInputValue = TankInput.m_HorizontalAxis;
+
+                if (m_MovementInputValue < 0f)
+                {
+                    m_TurnInputValue *= -1f;
+                }
+            }
+            else
+            {
+
+            }
+            
 
             EngineAudio ();
         }
@@ -136,6 +153,12 @@ namespace Complete
 
             // Apply this rotation to the rigidbody's rotation.
             m_Rigidbody.MoveRotation (m_Rigidbody.rotation * turnRotation);
+        }
+
+        public enum MovementType
+        {
+             Original,
+             New
         }
     }
 }

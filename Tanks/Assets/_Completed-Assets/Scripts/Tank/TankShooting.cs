@@ -18,15 +18,17 @@ namespace Complete
 
         public int m_MaxAmmo = 5;
         public int m_Ammo = 0;
-
-        private string m_FireButton;                // The input axis that is used for launching shells.
+        
         private float m_CurrentLaunchForce;         // The force that will be given to the shell when the fire button is released.
         private float m_ChargeSpeed;                // How fast the launch force increases, based on the max charge time.
         private bool m_Fired;                       // Whether or not the shell has been launched with this button press.
 
+        private TankInput TankInput;
 
         private void OnEnable()
         {
+            TankInput = GetComponent<TankInput>();
+
             // When the tank is turned on, reset the launch force and the UI
             m_CurrentLaunchForce = m_MinLaunchForce;
             m_AimSlider.value = m_MinLaunchForce;
@@ -35,9 +37,6 @@ namespace Complete
 
         private void Start ()
         {
-            // The fire axis is based on the player number.
-            m_FireButton = "Fire" + m_PlayerNumber + "_2";
-
             // The rate that the launch force charges up is the range of possible forces by the max charge time.
             m_ChargeSpeed = (m_MaxLaunchForce - m_MinLaunchForce) / m_MaxChargeTime;
         }
@@ -61,7 +60,7 @@ namespace Complete
                 Fire ();
             }
             // Otherwise, if the fire button has just started being pressed...
-            else if (Input.GetButtonDown (m_FireButton))
+            else if (TankInput.m_Fire2Down)
             {
                 // ... reset the fired flag and reset the launch force.
                 m_Fired = false;
@@ -72,7 +71,7 @@ namespace Complete
                 m_ShootingAudio.Play ();
             }
             // Otherwise, if the fire button is being held and the shell hasn't been launched yet...
-            else if (Input.GetButton (m_FireButton) && !m_Fired)
+            else if (TankInput.m_Fire2 && !m_Fired)
             {
                 // Increment the launch force and update the slider.
                 m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
@@ -80,7 +79,7 @@ namespace Complete
                 m_AimSlider.value = m_CurrentLaunchForce;
             }
             // Otherwise, if the fire button is released and the shell hasn't been launched yet...
-            else if (Input.GetButtonUp (m_FireButton) && !m_Fired)
+            else if (TankInput.m_Fire2Up && !m_Fired)
             {
                 // ... launch the shell.
                 Fire ();
