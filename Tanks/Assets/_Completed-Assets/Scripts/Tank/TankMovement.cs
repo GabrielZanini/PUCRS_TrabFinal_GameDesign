@@ -4,7 +4,7 @@ namespace Complete
 {
     public class TankMovement : MonoBehaviour
     {
-        public MovementType _movementType;
+        public MovementType movementType;
 
         public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
         public float m_Speed = 12f;                 // How fast the tank moves forward and back.
@@ -23,11 +23,13 @@ namespace Complete
         private ParticleSystem[] m_particleSystems; // References to all the particles systems used by the Tanks
 
         private TankInput TankInput;
+        private Quaternion cameraRotation;
 
         private void Awake ()
         {
             m_Rigidbody = GetComponent<Rigidbody> ();
             TankInput = GetComponent<TankInput>();
+            cameraRotation = Camera.main.transform.rotation;
         }
 
 
@@ -77,7 +79,7 @@ namespace Complete
 
         private void Update ()
         {
-            if (_movementType == MovementType.Original)
+            if (movementType == MovementType.Original)
             {
                 m_MovementInputValue = TankInput.m_VerticalAxis;
                 m_TurnInputValue = TankInput.m_HorizontalAxis;
@@ -89,10 +91,26 @@ namespace Complete
             }
             else
             {
+                float verticalInput = TankInput.m_VerticalAxis;
+                float horizontalInput = TankInput.m_HorizontalAxis;
+                
+                if (verticalInput != 0f || horizontalInput != 0f)
+                {
+                    m_MovementInputValue = Mathf.Max(Mathf.Abs(verticalInput), Mathf.Abs(horizontalInput));
 
+                    Vector3 newDirection = new Vector3(TankInput.m_HorizontalAxis, 0f, TankInput.m_VerticalAxis);
+                    Quaternion newRotation = Quaternion.LookRotation(newDirection);
+                    newRotation *= Quaternion.Euler(0f, cameraRotation.eulerAngles.y, 0f);
+
+                    transform.rotation = Quaternion.Slerp(transform.rotation, newRotation, 10f * Time.deltaTime);
+                }
+                else
+                {
+                    m_MovementInputValue = 0f;
+                    m_TurnInputValue = 0f;
+                }
             }
             
-
             EngineAudio ();
         }
 

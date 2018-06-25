@@ -6,6 +6,8 @@ public class TankInput : MonoBehaviour {
 
     public int m_PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
 
+    public PlayerType playerType;
+
     public float m_VerticalAxis;
     public float m_HorizontalAxis;
 
@@ -31,6 +33,18 @@ public class TankInput : MonoBehaviour {
 	
 	void Update ()
     {
+        if (playerType == PlayerType.Human)
+        {
+            ReadPlayerInput();
+        }
+        else
+        {
+            ReadAiInput();
+        }
+    }
+
+    private void ReadPlayerInput()
+    {
         m_VerticalAxis = Input.GetAxis(m_MovementAxisName);
         m_HorizontalAxis = Input.GetAxis(m_TurnAxisName);
 
@@ -41,5 +55,17 @@ public class TankInput : MonoBehaviour {
         m_Fire2Down = Input.GetButtonDown(m_FireButton2);
         m_Fire2 = Input.GetButton(m_FireButton2);
         m_Fire2Up = Input.GetButtonUp(m_FireButton2);
+    }
+
+    private void ReadAiInput()
+    {
+
+    }
+
+
+    public enum PlayerType
+    {
+        Human,
+        AI
     }
 }
