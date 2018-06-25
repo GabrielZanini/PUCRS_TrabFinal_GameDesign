@@ -7,6 +7,8 @@ namespace Complete
 {
     public class BulletExplosion : MonoBehaviour
     {
+        public GameObject player;
+
         public LayerMask m_TankMask;                        // Used to filter what the explosion affects, this should be set to "Players".
         public ParticleSystem m_ExplosionParticles;         // Reference to the particles that will play on explosion.
         public AudioSource m_ExplosionAudio;                // Reference to the audio that will play on explosion.
@@ -36,6 +38,14 @@ namespace Complete
 
         private void OnTriggerEnter(Collider other)
         {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Shield"))
+            {
+                if (other.transform.parent.gameObject == player)
+                {
+                    return;
+                }
+            }
+
             Rigidbody targetRigidbody = other.GetComponent<Rigidbody>();
 
             if (targetRigidbody)
