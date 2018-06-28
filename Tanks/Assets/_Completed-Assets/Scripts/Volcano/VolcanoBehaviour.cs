@@ -24,17 +24,17 @@ public class VolcanoBehaviour : MonoBehaviour {
 
     private void GenerateImpulse()
     {
-        var x = 10f;
-        var y = 10f;
-        var z = 10f;
+        var x = Random.Range(-45,45);
+        var y = Random.Range(15, 25);
+        var z = Random.Range(-45, 45);
 
-
+        _impulse = new Vector3(x, y, z);
     }
 
     private void ThrowRock()
     {
         GenerateImpulse();
-        var obj = Instantiate(Rock,SpawnPoint.position,Quaternion.identity);
+        var obj = Instantiate(Rock,SpawnPoint.position,SpawnPoint.rotation);
         obj.GetComponent<RockBehaviour>().Impulse = _impulse;
     }
 }

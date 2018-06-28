@@ -8,8 +8,10 @@ public class RockBehaviour : MonoBehaviour {
 
     private Rigidbody _rigidbody;
 
+    
+
     private void Start()
     {
-        _rigidbody.GetComponent<Rigidbody>().AddForce(Impulse, ForceMode.Impulse);
+        GetComponent<Rigidbody>().AddForce(Impulse, ForceMode.Impulse);
     }
 }
