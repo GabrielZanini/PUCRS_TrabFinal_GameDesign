@@ -46,10 +46,14 @@ namespace Complete
                 indexPowerUp = Random.Range(0, powerUps.Count);
             } while (indexPowerUp == lastPowerUp);
 
+            lastPowerUp = indexPowerUp;
+
             do
             {
                 indexSpawnPoint = Random.Range(0, spawnPoints.Count);
             } while (indexSpawnPoint == lastSpawnPoint);
+
+            lastSpawnPoint = indexSpawnPoint;
 
             GameObject puInstance =
                 Instantiate(powerUps[indexPowerUp], spawnPoints[indexSpawnPoint].position, spawnPoints[indexSpawnPoint].rotation) as GameObject;

@@ -36,10 +36,16 @@ namespace Complete
 
         private void OnCollisionExit(Collision collision)
         {
-            int player = LayerMask.NameToLayer("Players");
-            int shield = LayerMask.NameToLayer("Shield");
+            TankShield shield = collision.gameObject.GetComponent<TankShield>();
 
-            if (collision.gameObject.layer == player || collision.gameObject.layer == shield)
+            if (shield != null && shield.isActivated)
+            {
+                return;
+            }
+
+            int player = LayerMask.NameToLayer("Players");
+
+            if (collision.gameObject.layer == player)
             {
                 TankHealth health = collision.gameObject.GetComponent<TankHealth>();
 

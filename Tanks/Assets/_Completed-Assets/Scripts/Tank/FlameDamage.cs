@@ -8,25 +8,17 @@ namespace Complete
     {
         public float damage = 0.5f;
         
-        private void OnTriggerStay(Collider other)
-        {
-            //Debug.Log(other.gameObject.name);
-
-            Rigidbody targetRigidbody = other.GetComponent<Rigidbody>();
-
-            if (targetRigidbody)
-            {
-                TankHealth targetHealth = targetRigidbody.GetComponent<TankHealth>();
-
-                if (targetHealth)
-                {
-                    targetHealth.TakeDamage(damage);
-                }
-            }
-        }
-
         private void OnParticleCollision(GameObject other)
         {
+            Debug.Log(other.name);
+
+            TankShield shield = other.GetComponent<TankShield>();
+
+            if (shield != null && shield.isActivated)
+            {
+                return;
+            }
+
             if (other.layer == LayerMask.NameToLayer("Players"))
             {
                 TankHealth targetHealth = other.GetComponent<TankHealth>();
