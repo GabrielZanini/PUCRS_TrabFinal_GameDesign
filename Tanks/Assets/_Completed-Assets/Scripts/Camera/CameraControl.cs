@@ -8,6 +8,7 @@ namespace Complete
         public float m_ScreenEdgeBuffer = 4f;           // Space between the top/bottom most target and the screen edge.
         public float m_MinSize = 6.5f;                  // The smallest orthographic size the camera can be.
         [HideInInspector] public Transform[] m_Targets; // All the targets the camera needs to encompass.
+        [HideInInspector] public Transform targetsPowerUp;
 
 
         private Camera m_Camera;                        // Used for referencing the camera.
@@ -59,6 +60,9 @@ namespace Complete
                 numTargets++;
             }
 
+            averagePos += targetsPowerUp.position;
+            numTargets++;
+
             // If there are targets divide the sum of the positions by the number of them to find the average.
             if (numTargets > 0)
                 averagePos /= numTargets;
@@ -106,6 +110,12 @@ namespace Complete
                 // Choose the largest out of the current size and the calculated size based on the tank being to the left or right of the camera.
                 size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.x) / m_Camera.aspect);
             }
+
+
+            Vector3 targetPULocalPos = transform.InverseTransformPoint(targetsPowerUp.position);
+            Vector3 desiredPUPosToTarget = targetPULocalPos - desiredLocalPos;
+            size = Mathf.Max(size, Mathf.Abs(desiredPUPosToTarget.y));
+            size = Mathf.Max(size, Mathf.Abs(desiredPUPosToTarget.x) / m_Camera.aspect);
 
             // Add the edge buffer to the size.
             size += m_ScreenEdgeBuffer;

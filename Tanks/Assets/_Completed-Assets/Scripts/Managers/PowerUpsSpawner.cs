@@ -8,6 +8,8 @@ namespace Complete
     {
         public static PowerUpsSpawner Instance { get; private set; }
 
+        public CameraControl cameraControl;
+
         public List<GameObject> powerUps;
         public List<Transform> spawnPoints;
         
@@ -57,6 +59,8 @@ namespace Complete
 
             GameObject puInstance =
                 Instantiate(powerUps[indexPowerUp], spawnPoints[indexSpawnPoint].position, spawnPoints[indexSpawnPoint].rotation) as GameObject;
+
+            cameraControl.targetsPowerUp = puInstance.transform;
         }
     }
 }

@@ -45,6 +45,20 @@ namespace Complete
                     return;
                 }
             }
+            else if (other.gameObject == player)
+            {
+                Debug.Log(other.gameObject.name + " - " + player.gameObject.name);
+                return;
+            }
+            else
+            {
+                BulletExplosion bullet = other.GetComponent<BulletExplosion>();
+
+                if (bullet != null && bullet.player == player)
+                {
+                    return;
+                }
+            }
 
             Rigidbody targetRigidbody = other.GetComponent<Rigidbody>();
 
