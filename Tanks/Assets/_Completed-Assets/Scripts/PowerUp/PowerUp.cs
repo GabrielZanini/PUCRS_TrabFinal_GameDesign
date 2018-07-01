@@ -25,6 +25,8 @@ namespace Complete
 
             ApplyEffect(player);
 
+            PowerUpsSpawner.Instance.SpawnPowerUp();
+
             Destroy(gameObject);
         }
 

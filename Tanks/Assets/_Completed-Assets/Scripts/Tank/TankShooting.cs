@@ -52,15 +52,16 @@ namespace Complete
                 return;
             }
 
-            // If the max force has been exceeded and the shell hasn't yet been launched...
-            if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired)
-            {
-                // ... use the max force and launch the shell.
-                m_CurrentLaunchForce = m_MaxLaunchForce;
-                Fire ();
-            }
-            // Otherwise, if the fire button has just started being pressed...
-            else if (TankInput.m_Fire2Down)
+            //// If the max force has been exceeded and the shell hasn't yet been launched...
+            //if (m_CurrentLaunchForce >= m_MaxLaunchForce && !m_Fired)
+            //{
+            //    // ... use the max force and launch the shell.
+            //    m_CurrentLaunchForce = m_MaxLaunchForce;
+            //    Fire();
+            //}
+            //// Otherwise, if the fire button has just started being pressed...
+            //else
+            if (TankInput.m_Fire2Down)
             {
                 // ... reset the fired flag and reset the launch force.
                 m_Fired = false;
@@ -74,7 +75,10 @@ namespace Complete
             else if (TankInput.m_Fire2 && !m_Fired)
             {
                 // Increment the launch force and update the slider.
-                m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
+                if (m_CurrentLaunchForce < m_MaxLaunchForce && !m_Fired)
+                {
+                    m_CurrentLaunchForce += m_ChargeSpeed * Time.deltaTime;
+                }
 
                 m_AimSlider.value = m_CurrentLaunchForce;
             }
@@ -95,6 +99,8 @@ namespace Complete
             // Create an instance of the shell and store a reference to it's rigidbody.
             Rigidbody shellInstance =
                 Instantiate (m_Shell, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody;
+
+            shellInstance.GetComponent<ShellExplosion>().player = gameObject;
 
             // Set the shell's velocity to the launch force in the fire position's forward direction.
             shellInstance.velocity = m_CurrentLaunchForce * m_FireTransform.forward; 

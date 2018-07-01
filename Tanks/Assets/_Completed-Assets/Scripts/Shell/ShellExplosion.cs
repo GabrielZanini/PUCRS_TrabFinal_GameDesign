@@ -4,6 +4,8 @@ namespace Complete
 {
     public class ShellExplosion : MonoBehaviour
     {
+        public GameObject player;
+
         public LayerMask m_TankMask;                        // Used to filter what the explosion affects, this should be set to "Players".
         public ParticleSystem m_ExplosionParticles;         // Reference to the particles that will play on explosion.
         public AudioSource m_ExplosionAudio;                // Reference to the audio that will play on explosion.
@@ -22,7 +24,15 @@ namespace Complete
 
         private void OnTriggerEnter (Collider other)
         {
-			// Collect all the colliders in a sphere from the shell's current position to a radius of the explosion radius.
+            if (other.gameObject.layer == LayerMask.NameToLayer("Shield"))
+            {
+                if (other.transform.parent.gameObject == player)
+                {
+                    return;
+                }
+            }
+
+            // Collect all the colliders in a sphere from the shell's current position to a radius of the explosion radius.
             Collider[] colliders = Physics.OverlapSphere (transform.position, m_ExplosionRadius, m_TankMask);
 
             // Go through all the colliders...

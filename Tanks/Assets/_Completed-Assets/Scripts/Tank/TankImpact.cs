@@ -14,10 +14,14 @@ public class TankImpact : MonoBehaviour {
 	}
 	
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
         //Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Players"))
+
+        int player = LayerMask.NameToLayer("Players");
+        int shield = LayerMask.NameToLayer("Shield");
+
+        if (collision.gameObject.layer == player || collision.gameObject.layer == shield)
         {
             Vector3 impactDirection = transform.position - collision.transform.position;
             impactDirection.Normalize();
