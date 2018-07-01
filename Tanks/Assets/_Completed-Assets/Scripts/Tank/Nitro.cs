@@ -33,7 +33,7 @@ namespace Complete
         IEnumerator GoFaster(float seconds)
         {
             EnableFlames();
-            _movement.m_Speed *= speedMultiplier;
+            _movement.m_Speed = _originalSpeed * speedMultiplier;
 
             yield return new WaitForSeconds(seconds);
 
