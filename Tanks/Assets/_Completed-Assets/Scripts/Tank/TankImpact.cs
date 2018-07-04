@@ -7,14 +7,16 @@ namespace Complete
     public class TankImpact : MonoBehaviour
     {
 
-        public float impactForce = 10f;
+        public float impactForce = 5f;
         public float damage = 5f;
 
         private Rigidbody _rigidbody;
+        private Nitro _nitro;
 
         private void Start()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            _nitro = GetComponent<Nitro>();
         }
 
 
@@ -51,7 +53,7 @@ namespace Complete
 
                 if (health != null)
                 {
-                    health.TakeDamage(damage);
+                    health.TakeDamage(_nitro.isActive? damage * 3 : damage);
                 }
             }
         }

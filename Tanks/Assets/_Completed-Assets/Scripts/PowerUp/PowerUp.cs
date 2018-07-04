@@ -27,6 +27,12 @@ namespace Complete
 
             PowerUpsSpawner.Instance.SpawnPowerUp();
 
+            TankHealth health = player.GetComponent<TankHealth>();
+            if (health != null)
+            {
+                health.Heal(25);
+            }
+
             Destroy(gameObject);
         }
 

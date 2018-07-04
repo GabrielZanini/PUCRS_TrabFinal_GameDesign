@@ -41,12 +41,12 @@ namespace Complete
 
             if (playerType == PlayerType.AI)
             {
-                _carAI.enabled = true;
+                //_carAI.enabled = true;
                 _movement.enabled = false;
             }
             else
             {
-                _carAI.enabled = false;
+                //_carAI.enabled = false;
                 _movement.enabled = true;
             }
         }
@@ -79,14 +79,14 @@ namespace Complete
 
         private void ReadAiInput()
         {
-            m_VerticalAxis =    _carAI._VerticalAxis;
-            m_HorizontalAxis =  _carAI._HorizontalAxis;
-            m_Fire1Down =       _carAI._Fire1Down;
-            m_Fire2Down =       _carAI._Fire2Down;
-            m_Fire1 =           _carAI._Fire1;
-            m_Fire2 =           _carAI._Fire2;
-            m_Fire1Up =         _carAI._Fire1Up;
-            m_Fire2Up =         _carAI._Fire2Up;
+            //m_VerticalAxis =    _carAI._VerticalAxis;
+            //m_HorizontalAxis =  _carAI._HorizontalAxis;
+            //m_Fire1Down =       _carAI._Fire1Down;
+            //m_Fire2Down =       _carAI._Fire2Down;
+            //m_Fire1 =           _carAI._Fire1;
+            //m_Fire2 =           _carAI._Fire2;
+            //m_Fire1Up =         _carAI._Fire1Up;
+            //m_Fire2Up =         _carAI._Fire2Up;
         }
 
 

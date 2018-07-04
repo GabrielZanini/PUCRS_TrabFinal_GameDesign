@@ -35,11 +35,11 @@ public class VolcanoBehaviour : MonoBehaviour {
         int sign;
         sign = Random.Range(-1, 1);
 
-        var x = Random.Range(4,15);
+        var x = Random.Range(4,13);
         x = x * sign;
         x = sign == 0 ? x : x * sign;
 
-        var z = Random.Range(4, 15);
+        var z = Random.Range(4, 13);
         sign = Random.Range(-1, 1);
 
         z = sign == 0 ? z : z * sign;

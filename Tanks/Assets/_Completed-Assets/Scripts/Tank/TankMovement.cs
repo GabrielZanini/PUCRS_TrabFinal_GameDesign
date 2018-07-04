@@ -114,6 +114,7 @@ namespace Complete
             EngineAudio ();
         }
 
+        
 
         private void EngineAudio ()
         {
@@ -156,6 +157,11 @@ namespace Complete
             // Create a vector in the direction the tank is facing with a magnitude based on the input, speed and the time between frames.
             Vector3 movement = transform.forward * m_MovementInputValue * m_Speed * Time.deltaTime;
 
+            if (m_MovementInputValue == 0f || movement.normalized != m_Rigidbody.velocity.normalized)
+            {
+                m_Rigidbody.velocity = Vector3.Lerp(m_Rigidbody.velocity, Vector3.zero, 1f * Time.fixedDeltaTime);
+            }
+
             // Apply this movement to the rigidbody's position.
             m_Rigidbody.MovePosition(m_Rigidbody.position + movement);
         }
@@ -165,8 +171,9 @@ namespace Complete
         {
             if (m_TurnInputValue == 0f)
             {
-                return;
+                m_Rigidbody.angularVelocity = Vector3.Lerp(m_Rigidbody.angularVelocity, Vector3.zero, 1f * Time.fixedDeltaTime);
             }
+
             // Determine the number of degrees to be turned based on the input, speed and time between frames.
             float turn = m_TurnInputValue * m_TurnSpeed * Time.deltaTime;
 

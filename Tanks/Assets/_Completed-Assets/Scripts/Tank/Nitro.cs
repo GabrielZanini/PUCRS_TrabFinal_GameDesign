@@ -10,6 +10,8 @@ namespace Complete
         public float speedMultiplier = 3f;
         public float duration = 3f;
 
+        public bool isActive = false;
+
         TankMovement _movement;
         float _originalSpeed;
 
@@ -33,12 +35,14 @@ namespace Complete
         IEnumerator GoFaster(float seconds)
         {
             EnableFlames();
+            isActive = true;
             _movement.m_Speed = _originalSpeed * speedMultiplier;
 
             yield return new WaitForSeconds(seconds);
 
             _movement.m_Speed = _originalSpeed;
             DisableFlames();
+            isActive = false;
         }
 
         private void EnableFlames()

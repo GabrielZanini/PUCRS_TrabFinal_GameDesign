@@ -20,6 +20,9 @@ namespace Complete
         [HideInInspector] public GameObject m_Instance;         // A reference to the instance of the tank when it is created.
         [HideInInspector] public int m_Wins;                    // The number of wins this player has so far.
 
+        public int kills = 0;
+        public int deaths = 0;
+
         private TankInput m_Input;
         private TankMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
         private TankShooting m_Shooting;                       // Reference to tank's movement script, used to disable and enable control.

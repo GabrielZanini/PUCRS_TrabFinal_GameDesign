@@ -59,6 +59,19 @@ namespace Complete
         }
 
 
+
+        public void Heal(float amount)
+        {
+            m_CurrentHealth += amount;
+
+            if (m_CurrentHealth > m_StartingHealth)
+            {
+                m_CurrentHealth = m_StartingHealth;
+            }
+            
+            SetHealthUI();
+        }
+
         private void SetHealthUI ()
         {
             // Set the slider's value appropriately.
