@@ -66,6 +66,7 @@ namespace Complete
         // Used during the phases of the game where the player shouldn't be able to control their tank.
         public void DisableControl ()
         {
+            m_Input.enabled = false;
             m_Movement.enabled = false;
             m_Shooting.enabled = false;
             m_ShootingBullets.enabled = false;
@@ -77,6 +78,7 @@ namespace Complete
         // Used during the phases of the game where the player should be able to control their tank.
         public void EnableControl ()
         {
+            m_Input.enabled = true;
             m_Movement.enabled = true;
             m_Shooting.enabled = true;
             m_ShootingBullets.enabled = true;

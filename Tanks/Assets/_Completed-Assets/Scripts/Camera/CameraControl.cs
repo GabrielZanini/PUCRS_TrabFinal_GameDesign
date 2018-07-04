@@ -8,7 +8,7 @@ namespace Complete
         public float m_ScreenEdgeBuffer = 4f;           // Space between the top/bottom most target and the screen edge.
         public float m_MinSize = 6.5f;                  // The smallest orthographic size the camera can be.
         [HideInInspector] public Transform[] m_Targets; // All the targets the camera needs to encompass.
-        [HideInInspector] public Transform targetsPowerUp;
+        public Transform targetsPowerUp;
 
 
         private Camera m_Camera;                        // Used for referencing the camera.

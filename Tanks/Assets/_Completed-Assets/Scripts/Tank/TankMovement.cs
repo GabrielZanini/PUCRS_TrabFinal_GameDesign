@@ -163,6 +163,10 @@ namespace Complete
 
         private void Turn ()
         {
+            if (m_TurnInputValue == 0f)
+            {
+                return;
+            }
             // Determine the number of degrees to be turned based on the input, speed and time between frames.
             float turn = m_TurnInputValue * m_TurnSpeed * Time.deltaTime;
 
