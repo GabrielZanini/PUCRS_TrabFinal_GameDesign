@@ -29,6 +29,7 @@ namespace Complete
         private TankShootingBullets m_ShootingBullets;                        
         private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
 
+        private bool _started = false;
 
         public void Setup ()
         {
@@ -93,11 +94,37 @@ namespace Complete
         // Used at the start of each round to put the tank into it's default state.
         public void Reset ()
         {
-            m_Instance.transform.position = m_SpawnPoint.position;
-            m_Instance.transform.rotation = m_SpawnPoint.rotation;
+            var heath = m_Instance.GetComponent<TankHealth>();
 
-            m_Instance.SetActive (false);
-            m_Instance.SetActive (true);
+            if (heath.m_CurrentHealth <= 0f)
+            {
+                m_Instance.transform.position = m_SpawnPoint.position;
+                m_Instance.transform.rotation = m_SpawnPoint.rotation;
+
+                m_Instance.SetActive(false);
+                m_Instance.SetActive(true);
+
+                if (_started)
+                {
+                    deaths++;
+                }
+                else
+                {
+                    _started = true;
+                }
+                
+            }
+            else
+            {
+                if (_started)
+                {
+                    kills++;
+                }
+                else
+                {
+                    _started = true;
+                }
+            }
         }
     }
 }

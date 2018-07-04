@@ -120,7 +120,7 @@ namespace Complete
 
             // Increment the round number and display text showing the players what round it is.
             m_RoundNumber++;
-            m_MessageText.text = "ROUND " + m_RoundNumber;
+            //m_MessageText.text = "ROUND " + m_RoundNumber;
 
             // Wait for the specified length of time until yielding control back to the game loop.
             yield return m_StartWait;
@@ -164,7 +164,7 @@ namespace Complete
 
             // Get a message based on the scores and whether or not there is a game winner and display it.
             string message = EndMessage ();
-            m_MessageText.text = message;
+            //m_MessageText.text = message;
 
             // Wait for the specified length of time until yielding control back to the game loop.
             yield return m_EndWait;

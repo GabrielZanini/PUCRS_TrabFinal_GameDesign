@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,5 +22,17 @@ public class DebugController : MonoBehaviour {
             Destroy(this);
         }
 	}
-	
+
+    private void Update()
+    {
+        KeyCode[] keys = (KeyCode[])Enum.GetValues(typeof(KeyCode));
+        for (int i=0; i < keys.Length; i++)
+        {
+            if (Input.GetKey(keys[i]))
+            {
+                Debug.Log(keys[i].ToString());
+            }
+        }
+    }
+
 }
